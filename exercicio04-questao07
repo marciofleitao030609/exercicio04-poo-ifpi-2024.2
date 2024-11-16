@@ -1,0 +1,59 @@
+class Triangulo {
+    ladoA: number;
+    ladoB: number;
+    ladoC: number;
+  
+    constructor(ladoA: number, ladoB: number, ladoC: number) {
+      this.ladoA = ladoA;
+      this.ladoB = ladoB;
+      this.ladoC = ladoC;
+    }
+  
+    formaTriangulo(): boolean {
+      return (
+        Math.abs(this.ladoB - this.ladoC) < this.ladoA && this.ladoA < this.ladoB + this.ladoC &&
+        Math.abs(this.ladoA - this.ladoC) < this.ladoB && this.ladoB < this.ladoA + this.ladoC &&
+        Math.abs(this.ladoA - this.ladoB) < this.ladoC && this.ladoC < this.ladoA + this.ladoB
+      );
+    }
+
+    ehIsoceles(): boolean {
+        if (!this.formaTriangulo()) return false;
+        return (
+            (this.ladoA === this.ladoB && this.ladoA !== this.ladoC) ||
+            (this.ladoA === this.ladoC && this.ladoA !== this.ladoB) ||
+            (this.ladoB === this.ladoC && this.ladoB !== this.ladoA)
+        );
+    }
+    
+    ehEquilatero(): boolean {
+        if (!this.formaTriangulo()) return false;
+        return this.ladoA === this.ladoB && this.ladoB === this.ladoC;
+    }
+    
+    ehEscaleno(): boolean {
+        if (!this.formaTriangulo()) return false;
+        return this.ladoA !== this.ladoB && this.ladoB !== this.ladoC && this.ladoA !== this.ladoC;
+    }
+}
+
+// Triângulo escaleno
+const triangulo1 = new Triangulo(8, 9, 10);
+console.log(`Forma triângulo: ${triangulo1.formaTriangulo()}`);
+console.log(`É equilátero: ${triangulo1.ehEquilatero()}`);
+console.log(`É isósceles: ${triangulo1.ehIsoceles()}`);
+console.log(`É escaleno: ${triangulo1.ehEscaleno()}`);
+
+// Triângulo equilátero
+const triangulo2 = new Triangulo(9, 9, 9);
+console.log(`Forma triângulo: ${triangulo2.formaTriangulo()}`);
+console.log(`É equilátero: ${triangulo2.ehEquilatero()}`);
+console.log(`É isósceles: ${triangulo2.ehIsoceles()}`);
+console.log(`É escaleno: ${triangulo2.ehEscaleno()}`);
+
+// Triângulo isósceles
+const triangulo3 = new Triangulo(9, 9, 10);
+console.log(`Forma triângulo: ${triangulo3.formaTriangulo()}`);
+console.log(`É equilátero: ${triangulo3.ehEquilatero()}`);
+console.log(`É isósceles: ${triangulo3.ehIsoceles()}`);
+console.log(`É escaleno: ${triangulo3.ehEscaleno()}`);
