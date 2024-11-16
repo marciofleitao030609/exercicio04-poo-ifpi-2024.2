@@ -1,0 +1,60 @@
+class Conta {
+    numero: String;
+    saldo: number;
+    
+    constructor(numero: String, saldo: number) {
+        this.numero = numero;
+        this.saldo = saldo;
+    }
+
+    sacar(valor: number): boolean {
+        if (valor > this.saldo) {
+          console.log("Saque não realizado: saldo insuficiente.");
+          return false;
+        }
+        this.saldo -= valor;
+        console.log(`Saque de R$${valor} realizado com sucesso.`);
+        return true;
+    }
+    
+    depositar(valor: number): void {
+        this.saldo += valor;
+        console.log(`Depósito de R$${valor} realizado com sucesso.`);
+    }
+    
+    consultarSaldo(): number {
+        return this.saldo;
+    }
+
+    transferir(contaDestino: Conta, valor: number): boolean {
+        if (this.sacar(valor)) {
+          contaDestino.depositar(valor);
+          console.log(`Transferência de R$${valor} para a conta ${contaDestino.numero} realizada com sucesso.`);
+          return true;
+        }
+        console.log(`Transferência de R$${valor} para a conta ${contaDestino.numero} não realizada: saldo insuficiente.`);
+        return false;
+    }
+}
+
+// Teste - classe Conta
+let c1: Conta = new Conta("1", 500);
+let c2: Conta = new Conta("2", 1000);
+
+console.log(`Saldo inicial c1: R$${c1.consultarSaldo()}`);
+console.log(`Saldo inicial c2: R$${c2.consultarSaldo()}`);
+
+// Teste de saque
+c1.sacar(100);
+console.log(`Saldo c1 após saque: R$${c1.consultarSaldo()}`);
+c1.sacar(300);
+console.log(`Saldo c1 após tentativa de saque: R$${c1.consultarSaldo()}`);
+
+// Teste de transferência
+c1.transferir(c2, 60);
+console.log(`Saldo c1 após transferência: R$${c1.consultarSaldo()}`);
+console.log(`Saldo c2 após receber transferência: R$${c2.consultarSaldo()}`);
+
+c1.transferir(c2, 40);
+console.log(`Saldo c1 após tentativa de transferência: R$${c1.consultarSaldo()}`);
+console.log(`Saldo c2 após tentativa de receber transferência: R$${c2.consultarSaldo()}`);
