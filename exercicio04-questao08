@@ -1,0 +1,50 @@
+class Equipamento {
+    ligado: boolean;
+  
+    constructor() {
+      this.ligado = false;
+    }
+    
+    liga(): void {
+        if (!this.ligado) {
+        this.ligado = true;
+        console.log("Equipamento ligado.");
+        } else {
+        console.log("O equipamento já está ligado.");
+        }
+    }
+
+    desliga(): void {
+        if (this.ligado) {
+        this.ligado = false;
+        console.log("Equipamento desligado.");
+        } else {
+        console.log("O equipamento já está desligado.");
+        }
+    }
+    
+    inverte(): void {
+        this.ligado = !this.ligado;
+        console.log(`Equipamento agora está ${this.ligado ? "ligado" : "desligado"}.`);
+    }
+
+    estaLigado(): boolean {
+        return this.ligado;
+    }
+}
+
+const equipamento1 = new Equipamento();
+
+// Executando os métodos
+equipamento1.liga();
+console.log(`Está ligado? ${equipamento1.estaLigado()}`);
+
+equipamento1.desliga();
+console.log(`Está ligado? ${equipamento1.estaLigado()}`);
+
+equipamento1.inverte();
+console.log(`Está ligado? ${equipamento1.estaLigado()}`);
+
+equipamento1.inverte();
+console.log(`Está ligado? ${equipamento1.estaLigado()}`);
+  
