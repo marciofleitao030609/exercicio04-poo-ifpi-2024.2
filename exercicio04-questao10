@@ -1,0 +1,75 @@
+class Jogador {
+    nome: string
+    forca: number;
+    nivel: number;
+    pontos: number;
+  
+    constructor(nome: string, forca: number, nivel: number, pontos: number) {
+        this.nome = nome;
+        this.forca = forca;
+        this.nivel = nivel;
+        this.pontos = pontos;
+    }
+  
+    calcularAtaque(): number {
+        return this.forca * this.nivel;
+    }
+  
+    atacar(jogadorAtacado: Jogador): void {
+        if (!jogadorAtacado.estaVivo()) {
+            console.log(`${jogadorAtacado.nome} já está derrotado. Ataque ignorado.`);
+            return;
+        }
+  
+        const dano = this.calcularAtaque();
+        jogadorAtacado.pontos -= dano;
+    
+        console.log(
+            `${this} atacou ${jogadorAtacado.nome} causando ${dano} de dano.`
+        );
+  
+        if (!jogadorAtacado.estaVivo()) {
+            console.log(`${jogadorAtacado.nome} foi derrotado!`);
+        }
+    }
+  
+    estaVivo(): boolean {
+        return this.pontos > 0;
+    }
+  
+    toString(): string {
+        return `Jogador ${this.nome} (Força: ${this.forca}, Nível: ${this.nivel}, Pontos: ${this.pontos})`;
+    }
+}
+  
+// Testando a classe Jogador
+const jogador1 = new Jogador("Mago", 20, 4, 100);
+const jogador2 = new Jogador("Arqueiro", 14, 6, 80);
+  
+console.log("Estado inicial dos jogadores:");
+console.log(jogador1.toString());
+console.log(jogador2.toString());
+  
+// Jogador 1 ataca Jogador 2
+jogador1.atacar(jogador2);
+  
+// Jogador 2 ataca Jogador 1
+jogador2.atacar(jogador1);
+  
+// Jogador 1 ataca Jogador 2
+jogador1.atacar(jogador2);
+  
+// Verificando estado final
+console.log("Estado final dos jogadores:");
+console.log(jogador1.toString());
+console.log(jogador2.toString());
+  
+// Comparando quem tem mais pontos
+if (jogador1.pontos > jogador2.pontos) {
+    console.log("Jogador 1 tem mais pontos!");
+    } else if (jogador1.pontos < jogador2.pontos) {
+    console.log("Jogador 2 tem mais pontos!");
+    } else {
+    console.log("Ambos os jogadores têm os mesmos pontos!");
+}
+  
